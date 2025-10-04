@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: ms-auth-clinica-agendamento
+  datasource: # ========== DATASOURCE CONFIG ==========
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa: # ========== JPA / HIBERNATE ==========
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+#  sql:
+#    init:
+#      mode: always
+server:
+  port: 9000
+
+app:
+  security:
+    issuer: "https://auth.clinica-agendamento.local"
+    access-token:
+      ttl-seconds: 3600
+    keys:
+      private-pem: "classpath:keys/rsa-private.pem"
+      public-pem: "classpath:keys/rsa-public.pem"
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+        security: DEBUG
+        beans:
+          factory: DEBUG
